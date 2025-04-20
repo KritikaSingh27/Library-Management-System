@@ -1,5 +1,5 @@
 import mysql.connector as a
-con = a.connect(host="localhost", user="root", password="kk27")
+con = a.connect(host="localhost", user="root", password="kk27", use_pure=True)
 c = con.cursor()
 c.execute("create database Library;")
 c.execute("use library;")
