@@ -1,12 +1,14 @@
-import mysql.connector as a
-con = a.connect(host="localhost", user="root", password="kk27", use_pure=True)
-c = con.cursor()
+import mysql.connector as a   #importing mysql connector
+con = a.connect(host="localhost", user="root", password="kk27", use_pure=True) 
+c = con.cursor()   #creating a cursor for mysql execution
+# mysql commands
 c.execute("create database Library;")
 c.execute("use library;")
 c.execute("create table books(bookname varchar(50), total int, subject varchar(50));")
 c.execute("create table issue(name varchar(50), regno varchar(50) NOT NULL PRIMARY KEY, bookname varchar(50), issue varchar(50));")
 c.execute("create table submit(name varchar(50), regno varchar(50) NOT NULL PRIMARY KEY, bookname varchar(50), submit varchar(50));")
 
+# for adding a book
 def addbook():
     c = con.cursor()
     n = input("Enter Name of the BOOK you want to add: ")
@@ -19,6 +21,7 @@ def addbook():
     input("Press ENTER to continue")
     main()
 
+# for issue a book
 def issuebook():
     c = con.cursor()
     n = input("Enter your Name:")
@@ -31,6 +34,7 @@ def issuebook():
     print("Book Issued successfully to", n)
     bookup(bn, -1)
 
+# for submitting a book
 def submitbook():
     c = con.cursor()
     n = input("Enter your Name: ")
@@ -43,6 +47,7 @@ def submitbook():
     print("Book submitted from ", n)
     bookup(bn, 1)
 
+# for updating when book is issued or submitted
 def bookup(bn, u):
     a = "select total from books where bookname='{}'".format(bn)
     c = con.cursor()
@@ -55,6 +60,7 @@ def bookup(bn, u):
     input("Press ENTER to continue")
     main()
 
+# for deleting a book
 def deletebook():
     print("This option is only available for the LIBRARIAN")
     p = input("Enter password:")
@@ -75,6 +81,7 @@ def deletebook():
         input("Press ENTER to continue")
         main()
 
+# for displaying all books
 def displaybook():
     a = "select * from books"
     c = con.cursor()
@@ -85,6 +92,7 @@ def displaybook():
         print("Total:", i[1])
     input("Press ENTER to continue")
     main()
+
 
 def main():
     print("""
@@ -114,6 +122,7 @@ def main():
         print("Wrong Choice...")
         main()
 
+# setting up the password so that not everyone can access
 def password():
     ps = input("Enter Password: ")
     if ps == "library123":
